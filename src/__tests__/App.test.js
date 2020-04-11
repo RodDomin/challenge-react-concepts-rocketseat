@@ -24,7 +24,6 @@ describe("App component", () => {
     apiMock.onGet("repositories").reply(200, []);
 
     apiMock.onPost("repositories").reply(200, {
-      id: "123",
       url: "https://github.com/josepholiveira",
       title: "Desafio ReactJS",
       techs: ["React", "Node.js"],
@@ -46,14 +45,15 @@ describe("App component", () => {
 
     apiMock.onGet("repositories").reply(200, [
       {
-        id: "123",
         url: "https://github.com/josepholiveira",
         title: "Desafio ReactJS",
         techs: ["React", "Node.js"],
       },
     ]);
 
-    apiMock.onDelete("repositories/123").reply(204);
+    const url = new RegExp('/repositories/*');
+
+    apiMock.onDelete(url).reply(204);
 
     await actWait();
 
